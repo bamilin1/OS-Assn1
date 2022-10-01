@@ -89,3 +89,16 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+void sys_shutdown(void){
+  outw(0xB004, 0x0|0x2000);
+  outw(0x604, 0x0|0x2000);
+}
+
+void sys_shutdown2(void){
+  char* shut;
+  argptr(0,(void*)&shut,sizeof(*shut));
+  cprintf("%s\n",shut);
+  sys_shutdown();
+
+}
